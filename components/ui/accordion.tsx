@@ -6,15 +6,39 @@ import { Accordion as AccordionPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
-function Accordion({
-  className,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Root>) {
+// Base UI compat: the old base-nova Accordion had no `type` prop — it always
+// allowed multiple open items and took array values. Radix requires
+// type="single" | "multiple", so default to "multiple" (with array values) and
+// keep `type` optional so existing call sites compile unchanged.
+type AccordionProps = Omit<
+  React.ComponentProps<typeof AccordionPrimitive.Root>,
+  "type" | "value" | "defaultValue" | "onValueChange"
+> &
+  (
+    | {
+        type?: "multiple"
+        value?: string[]
+        defaultValue?: string[]
+        onValueChange?: (value: string[]) => void
+      }
+    | {
+        type: "single"
+        collapsible?: boolean
+        value?: string
+        defaultValue?: string
+        onValueChange?: (value: string) => void
+      }
+  )
+
+function Accordion({ className, type = "multiple", ...props }: AccordionProps) {
+  const rootProps = { type, ...props } as React.ComponentProps<
+    typeof AccordionPrimitive.Root
+  >
   return (
     <AccordionPrimitive.Root
       data-slot="accordion"
       className={cn("flex w-full flex-col", className)}
-      {...props}
+      {...rootProps}
     />
   )
 }
@@ -63,7 +87,7 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className="overflow-hidden text-sm data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up"
       {...props}
     >
       <div

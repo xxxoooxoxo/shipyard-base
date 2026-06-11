@@ -9,7 +9,11 @@ import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 // Base UI compat: the old base-nova Accordion had no `type` prop — it always
 // allowed multiple open items and took array values. Radix requires
 // type="single" | "multiple", so default to "multiple" (with array values) and
-// keep `type` optional so existing call sites compile unchanged.
+// keep `type` optional so existing call sites compile unchanged. As with
+// Dialog/Sheet, onValueChange is widened to the Base UI two-argument form
+// (the second argument is never provided by Radix).
+type AccordionChangeEventDetails = { reason?: string; event?: Event }
+
 type AccordionProps = Omit<
   React.ComponentProps<typeof AccordionPrimitive.Root>,
   "type" | "value" | "defaultValue" | "onValueChange"
@@ -19,14 +23,20 @@ type AccordionProps = Omit<
         type?: "multiple"
         value?: string[]
         defaultValue?: string[]
-        onValueChange?: (value: string[]) => void
+        onValueChange?: (
+          value: string[],
+          eventDetails?: AccordionChangeEventDetails
+        ) => void
       }
     | {
         type: "single"
         collapsible?: boolean
         value?: string
         defaultValue?: string
-        onValueChange?: (value: string) => void
+        onValueChange?: (
+          value: string,
+          eventDetails?: AccordionChangeEventDetails
+        ) => void
       }
   )
 

@@ -5,12 +5,21 @@ import { Switch as SwitchPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
+// Base UI compat: like Dialog/Sheet, onCheckedChange is widened to the Base UI
+// two-argument form (the second argument is never provided by Radix).
 function Switch({
   className,
   size = "default",
   ...props
-}: React.ComponentProps<typeof SwitchPrimitive.Root> & {
+}: Omit<
+  React.ComponentProps<typeof SwitchPrimitive.Root>,
+  "onCheckedChange"
+> & {
   size?: "sm" | "default"
+  onCheckedChange?: (
+    checked: boolean,
+    eventDetails?: { reason?: string; event?: Event }
+  ) => void
 }) {
   return (
     <SwitchPrimitive.Root

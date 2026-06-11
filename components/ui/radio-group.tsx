@@ -5,10 +5,20 @@ import { RadioGroup as RadioGroupPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
+// Base UI compat: like Dialog/Sheet, onValueChange is widened to the Base UI
+// two-argument form (the second argument is never provided by Radix).
 function RadioGroup({
   className,
   ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+}: Omit<
+  React.ComponentProps<typeof RadioGroupPrimitive.Root>,
+  "onValueChange"
+> & {
+  onValueChange?: (
+    value: string,
+    eventDetails?: { reason?: string; event?: Event }
+  ) => void
+}) {
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"

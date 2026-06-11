@@ -6,10 +6,20 @@ import { Checkbox as CheckboxPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
 import { CheckIcon } from "lucide-react"
 
+// Base UI compat: like Dialog/Sheet, onCheckedChange is widened to the Base UI
+// two-argument form (the second argument is never provided by Radix).
 function Checkbox({
   className,
   ...props
-}: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+}: Omit<
+  React.ComponentProps<typeof CheckboxPrimitive.Root>,
+  "onCheckedChange"
+> & {
+  onCheckedChange?: (
+    checked: boolean | "indeterminate",
+    eventDetails?: { reason?: string; event?: Event }
+  ) => void
+}) {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"

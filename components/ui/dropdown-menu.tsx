@@ -7,9 +7,22 @@ import { cn } from "@/lib/utils"
 import { renderAsChild, type RenderProp } from "@/lib/render"
 import { CheckIcon, ChevronRightIcon } from "lucide-react"
 
+// Base UI compat: like Dialog/Sheet, open/checked/value change callbacks are
+// widened to the Base UI two-argument `(value, eventDetails)` form so old call
+// sites compile (the second argument is never provided by Radix).
+type DropdownMenuChangeEventDetails = { reason?: string; event?: Event }
+
 function DropdownMenu({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
+}: Omit<
+  React.ComponentProps<typeof DropdownMenuPrimitive.Root>,
+  "onOpenChange"
+> & {
+  onOpenChange?: (
+    open: boolean,
+    eventDetails?: DropdownMenuChangeEventDetails
+  ) => void
+}) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />
 }
 
@@ -97,8 +110,15 @@ function DropdownMenuCheckboxItem({
   checked,
   inset,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem> & {
+}: Omit<
+  React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>,
+  "onCheckedChange"
+> & {
   inset?: boolean
+  onCheckedChange?: (
+    checked: boolean,
+    eventDetails?: DropdownMenuChangeEventDetails
+  ) => void
 }) {
   return (
     <DropdownMenuPrimitive.CheckboxItem
@@ -127,7 +147,15 @@ function DropdownMenuCheckboxItem({
 
 function DropdownMenuRadioGroup({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>) {
+}: Omit<
+  React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>,
+  "onValueChange"
+> & {
+  onValueChange?: (
+    value: string,
+    eventDetails?: DropdownMenuChangeEventDetails
+  ) => void
+}) {
   return (
     <DropdownMenuPrimitive.RadioGroup
       data-slot="dropdown-menu-radio-group"
@@ -219,7 +247,15 @@ function DropdownMenuShortcut({
 
 function DropdownMenuSub({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
+}: Omit<
+  React.ComponentProps<typeof DropdownMenuPrimitive.Sub>,
+  "onOpenChange"
+> & {
+  onOpenChange?: (
+    open: boolean,
+    eventDetails?: DropdownMenuChangeEventDetails
+  ) => void
+}) {
   return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />
 }
 

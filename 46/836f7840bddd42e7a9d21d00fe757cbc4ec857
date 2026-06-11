@@ -1,0 +1,36 @@
+components/ui/direction.tsx
+  s_5ac3b5966d390e::t_7af6219395e59a 6-8,13-17,21
+components/ui/checkbox.tsx
+  s_5ac3b5966d390e::t_f7e414fae73edc 9-10,14-22
+components/ui/tabs.tsx
+  s_5ac3b5966d390e::t_4168609b7c86c1 11-18,29-31,40,48
+components/ui/radio-group.tsx
+  s_5ac3b5966d390e::t_3b600b8115b0cc 8-9,13-21
+components/ui/accordion.tsx
+  s_5ac3b5966d390e::t_5e629f054bc692 12-16,26-29,36-39
+components/ui/dropdown-menu.tsx
+  s_5ac3b5966d390e::t_cdf5c978ed5e2d 150-158
+  s_5ac3b5966d390e::t_1e0266a25e80d1 113-116,118-121
+  s_5ac3b5966d390e::t_04a77df4513dce 10-14,17-25
+  s_5ac3b5966d390e::t_25d1f4190979ae 250-258
+components/ui/select.tsx
+  s_5ac3b5966d390e::t_5a860f2b659208 4,9-52,54,56-59,61-81,85-86,91-178,183-193,204-206,209-248,251-253,262-279,284,295-315,319-322,324-325,327-362,367-374,376-377,382-383,397-407,411,417-419,423-425,428-459,463-466,483-497,501,511-512,522,531-532,542
+components/ui/switch.tsx
+  s_5ac3b5966d390e::t_0e753feed031f0 8-9,14-17,19-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "46836f7840bddd42e7a9d21d00fe757cbc4ec857",
+  "prompts": {},
+  "sessions": {
+    "s_5ac3b5966d390e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "03d1f158-ffc0-410a-90be-f2a2eca1f43d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Ali Houssain Sareini <alihsareini@live.com>"
+    }
+  }
+}
